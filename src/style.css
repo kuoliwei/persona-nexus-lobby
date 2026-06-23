@@ -1,0 +1,259 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #0d1117;
+  color: #c9d1d9;
+  min-height: 100vh;
+}
+
+.home-container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #161b22;
+  border-right: 1px solid #30363d;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sidebar-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.logo-btn, .create-btn, .logout-btn {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 6px;
+  border: 1px solid rgba(240, 246, 252, 0.1);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.logo-btn, .create-btn {
+  background-color: #6366f1;
+}
+
+.logo-btn:hover, .create-btn:hover {
+  background-color: #7c3aed;
+}
+
+.logout-btn {
+  background-color: #dc2626;
+}
+
+.logout-btn:hover {
+  background-color: #991b1b;
+}
+
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  background-color: #0d1117;
+  display: flex;
+}
+
+#content-area {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.lobby-container {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.lobby-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  padding: 40px 20px 0 20px;
+}
+
+h2 {
+  color: #58a6ff;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #8b949e;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  background-color: #238636;
+  color: #ffffff;
+  border: 1px solid rgba(240, 246, 252, 0.1);
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #2ea043;
+}
+
+#message-box {
+  margin-bottom: 20px;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  text-align: center;
+  display: none;
+}
+
+#message-box.info {
+  display: block;
+  background-color: rgba(88, 166, 255, 0.1);
+  border: 1px solid #58a6ff;
+  color: #79c0ff;
+}
+
+#message-box.error {
+  display: block;
+  background-color: rgba(248, 81, 73, 0.15);
+  border: 1px solid #f85149;
+  color: #ff7b72;
+}
+
+.character-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+  padding: 0 20px 20px 20px;
+}
+
+.character-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+  position: relative;
+}
+
+.character-card:hover {
+  border-color: #58a6ff;
+  transform: translateY(-2px);
+}
+
+.character-avatar {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-color: #0d1117;
+  border-bottom: 1px solid #30363d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #30363d;
+  font-size: 13px;
+  position: relative;
+}
+
+.character-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.character-badge.public {
+  background-color: #238636;
+}
+
+.character-badge.private {
+  background-color: #da3633;
+}
+
+.character-avatar::after {
+  content: '尚無頭像';
+}
+
+.character-info {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.character-name {
+  color: #c9d1d9;
+  font-size: 17px;
+}
+
+.character-intro {
+  color: #8b949e;
+  font-size: 13px;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.empty-state {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 80px 20px;
+  color: #8b949e;
+  text-align: center;
+}
+
+.empty-state.visible {
+  display: flex;
+}
+
+.create-character-btn {
+  margin: 0 50px 30px 50px;
+  padding: 20px 24px;
+  height: 200px;
+  width: calc(100% - 100px);
+  background-color: #6366f1;
+  color: #ffffff;
+  border: 1px solid rgba(240, 246, 252, 0.1);
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.create-character-btn:hover {
+  background-color: #7c3aed;
+}

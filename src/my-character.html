@@ -1,0 +1,24 @@
+<div class="lobby-header">
+  <div>
+    <h2>我的角色</h2>
+    <p class="subtitle">管理你創作的所有 AI 角色</p>
+  </div>
+</div>
+<button id="create-character-btn" class="create-character-btn">+ 創建新角色</button>
+<div id="message-box"></div>
+<div id="character-grid" class="character-grid"></div>
+<div id="empty-state" class="empty-state">
+  <p>你還沒有創作任何角色</p>
+  <button type="button" class="empty-create-btn">立即創建第一個角色</button>
+</div>
+
+<template id="character-card-template">
+  <a class="character-card" href="#">
+    <div class="character-avatar"></div>
+    <div class="character-badge"></div>
+    <div class="character-info">
+      <h3 class="character-name"></h3>
+      <p class="character-intro"></p>
+    </div>
+  </a>
+</template>
