@@ -23,12 +23,22 @@ const userId = getCurrentUserId();
 if (!userId) {
   window.location.href = `${LOGIN_APP_URL}/`;
 } else {
-  // 初始化：載入側邊欄和首頁
+  // 初始化：載入側邊欄
   await initSidebar();
-  await loadHomePage();
 
-  // 設定初始歷史狀態
-  history.replaceState({ page: 'home' }, '', '/');
+  // 根據 URL 路徑決定加載哪個頁面
+  // 問題背景：persona-nexus-character 創建/編輯角色成功後，使用 window.parent.location.href 跳轉到 /my-characters
+  // 但頁面重新加載時，main.js 會再次執行，導致總是加載首頁而忽略 URL 路徑
+  // 解決方案：在初始化時檢查 window.location.pathname，根據路徑決定加載首頁或「我的角色」頁面
+  const pathname = window.location.pathname;
+  if (pathname === '/my-characters') {
+    const { loadMyCharacterPage } = await import('./my-character.js');
+    await loadMyCharacterPage();
+    history.replaceState({ page: 'myCharacters' }, '', '/my-characters');
+  } else {
+    await loadHomePage();
+    history.replaceState({ page: 'home' }, '', '/');
+  }
 
   // Debug：追蹤所有 pushState/replaceState 操作
   window.historyLog = [{ page: 'home', type: 'replace (initial)', length: window.history.length }];

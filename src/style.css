@@ -21,16 +21,39 @@ body {
   background-color: #161b22;
   border-right: 1px solid #30363d;
   padding: 20px;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-.sidebar-content {
+/* 上容器：首頁 + 創建角色按鈕（自適應內容大小，靠最上） */
+.sidebar-top {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  flex-shrink: 0;  /* 不壓縮，自適應內容大小 */
+}
+
+/* 中容器：聊天室圖示區域（吃滿剩餘空間） */
+.sidebar-middle {
+  flex: 1;  /* 占滿剩餘空間 */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 0;
+  overflow-y: auto;
+  border-top: 1px solid #30363d;
+  border-bottom: 1px solid #30363d;
+  min-height: 0;  /* 讓 flex 正常工作 */
+}
+
+/* 下容器：登出按鈕（自適應內容大小，靠最下） */
+.sidebar-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex-shrink: 0;  /* 不壓縮，自適應內容大小 */
+  padding-top: 16px;
 }
 
 .logo-btn, .create-btn, .logout-btn {
@@ -59,6 +82,104 @@ body {
 
 .logout-btn:hover {
   background-color: #991b1b;
+}
+
+/* 🆕 聊天歷史項目容器（flex 布局） */
+.sidebar-conversation-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 6px;
+  background-color: #0d1117;
+  border: 1px solid rgba(240, 246, 252, 0.1);
+  transition: all 0.2s ease;
+}
+
+.sidebar-conversation-item:hover {
+  background-color: #161b22;
+  border-color: #58a6ff;
+}
+
+/* 🆕 聊天歷史按鈕（左邊，占滿空間） */
+.sidebar-conversation-btn {
+  flex: 1;
+  padding: 10px 12px;
+  border: none;
+  background: transparent;
+  color: #c9d1d9;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-conversation-btn:hover {
+  background-color: transparent;  /* 覆蓋全域按鈕樣式 */
+  color: #ffffff;
+}
+
+/* 🆕 菜單按鈕（右邊，三點） */
+.sidebar-conversation-menu {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #8b949e;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.sidebar-conversation-menu:hover {
+  background-color: transparent;  /* 覆蓋全域按鈕樣式 */
+  color: #ffffff;
+}
+
+/* 空狀態提示 */
+.sidebar-empty-msg {
+  text-align: center;
+  color: #8b949e;
+  font-size: 13px;
+  padding: 16px 12px;
+}
+
+/* 🆕 對話菜單 */
+.conversation-menu {
+  position: fixed;
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  min-width: 120px;
+}
+
+.conversation-menu-item {
+  padding: 10px 12px;
+  color: #c9d1d9;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.conversation-menu-item:hover {
+  background-color: #21262d;
+  color: #58a6ff;
+}
+
+.conversation-menu-item:first-child {
+  border-radius: 6px 6px 0 0;
+}
+
+.conversation-menu-item:last-child {
+  border-radius: 0 0 6px 6px;
 }
 
 .main-content {
@@ -159,6 +280,7 @@ button:hover {
   overflow: hidden;
   transition: border-color 0.2s ease, transform 0.2s ease;
   position: relative;
+  text-decoration: none;
 }
 
 .character-card:hover {
@@ -222,6 +344,31 @@ button:hover {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* 🆕 角色卡菜單按鈕（右下角） */
+.character-card-menu {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  background: rgba(22, 27, 34, 0.9);
+  color: #8b949e;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.character-card-menu:hover {
+  background: rgba(88, 166, 255, 0.2);
+  color: #58a6ff;
 }
 
 .empty-state {

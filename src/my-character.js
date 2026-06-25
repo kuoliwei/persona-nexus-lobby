@@ -59,6 +59,46 @@ function clearMessage() {
   messageBox.textContent = '';
 }
 
+// 🆕 顯示角色卡菜單
+async function showCharacterCardMenu(event, character) {
+  // 建立菜單
+  const menu = document.createElement('div');
+  menu.className = 'conversation-menu';
+
+  // 編輯選項
+  const editOption = document.createElement('div');
+  editOption.className = 'conversation-menu-item';
+  editOption.textContent = '✏️ 編輯';
+  editOption.addEventListener('click', async () => {
+    console.log('✏️ [my-character.js] 編輯角色，characterId:', character.id);
+    document.body.removeChild(menu);
+    const { loadCharacterEditPage } = await import('./character-edit.js');
+    await loadCharacterEditPage(character.id);
+  });
+
+  menu.appendChild(editOption);
+
+  // 定位菜單到按鈕位置
+  const rect = event.target.getBoundingClientRect();
+  menu.style.position = 'fixed';
+  menu.style.top = `${rect.bottom + 4}px`;
+  menu.style.left = `${rect.left - 80}px`;
+
+  document.body.appendChild(menu);
+
+  // 點擊外部關閉菜單
+  setTimeout(() => {
+    document.addEventListener('click', closeMenu);
+  }, 0);
+
+  function closeMenu(e) {
+    if (!menu.contains(e.target) && e.target !== event.target) {
+      document.removeChild(menu);
+      document.removeEventListener('click', closeMenu);
+    }
+  }
+}
+
 function renderCharacters(characters, characterAppUrl) {
   const grid = document.getElementById('character-grid');
   const emptyState = document.getElementById('empty-state');
@@ -77,12 +117,24 @@ function renderCharacters(characters, characterAppUrl) {
     const node = cardTemplate.content.cloneNode(true);
     const card = node.querySelector('.character-card');
     const badge = node.querySelector('.character-badge');
+    const menuBtn = node.querySelector('.character-card-menu');
+
     card.href = '#';
     card.addEventListener('click', async (e) => {
       e.preventDefault();
-      const { loadCharacterEditPage } = await import('./character-edit.js');
-      await loadCharacterEditPage(character.id);
+      // 🆕 改成打開聊天室（原本是進入編輯頁面）
+      const { loadChatPage } = await import('./chat-page.js');
+      await loadChatPage(character.id);
+      // 歷史管理由 chat-page.js 負責，這裡不需要 pushState
     });
+
+    // 🆕 菜單按鈕事件
+    menuBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();  // 防止觸發卡片點擊
+      showCharacterCardMenu(e, character);
+    });
+
     node.querySelector('.character-name').textContent = character.name;
     node.querySelector('.character-intro').textContent = character.introduction ?? '';
 
