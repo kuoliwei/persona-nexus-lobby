@@ -1,3 +1,24 @@
-<div class="home-page">
-  <!-- 空白首頁 -->
+<div class="lobby-header">
+  <div>
+    <h2>角色大廳</h2>
+    <p class="subtitle">探索所有可用的 AI 角色，開始你的對話</p>
+  </div>
 </div>
+
+<div id="message-box"></div>
+
+<div id="character-grid" class="character-grid"></div>
+
+<div id="empty-state" class="empty-state" style="display: none;">
+  <p>暫時還沒有任何公開角色</p>
+</div>
+
+<template id="character-card-template">
+  <a class="character-card" href="#">
+    <div class="character-avatar"></div>
+    <div class="character-info">
+      <h3 class="character-name"></h3>
+      <p class="character-intro"></p>
+    </div>
+  </a>
+</template>

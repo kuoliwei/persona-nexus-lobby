@@ -62,6 +62,9 @@ if (!userId) {
     } else if (event.state?.page === 'create') {
       const { loadCharacterCreatePage } = await import('./character-create.js');
       await loadCharacterCreatePage();
+    } else if (event.state?.page === 'chat') {
+      const { loadChatPage } = await import('./chat-page.js');
+      await loadChatPage(event.state.characterId);
     }
   });
 }
