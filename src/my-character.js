@@ -34,15 +34,20 @@ export async function loadMyCharacterPage() {
 
   showMessage('info', '載入角色清單中...');
 
-  const result = await listMyCharacters();
+  try {
+    const result = await listMyCharacters();
 
-  if (result.status !== 'success') {
-    showMessage('error', `載入失敗：${result.message}`);
-    return;
+    if (result.status !== 'success') {
+      showMessage('error', `載入失敗：${result.message}`);
+      return;
+    }
+
+    clearMessage();
+    renderCharacters(result.data, CHARACTER_APP_URL);
+  } catch (error) {
+    showMessage('error', `❌ 載入失敗：${error.message}`);
+    console.error('[my-character.js] 角色清單載入失敗:', error);
   }
-
-  clearMessage();
-  renderCharacters(result.data, CHARACTER_APP_URL);
 }
 
 function showMessage(type, text) {

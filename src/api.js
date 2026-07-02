@@ -29,5 +29,11 @@ export async function listMyCharacters() {
   const response = await fetch(`${BASE_URL}/characters?authorId=${encodeURIComponent(userId)}`, {
     headers: { 'Authorization': `Bearer ${token}` }
   });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({ message: '未知錯誤' }));
+    throw new Error(error.message || `HTTP ${response.status}`);
+  }
+
   return response.json();
 }
