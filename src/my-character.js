@@ -45,7 +45,7 @@ export async function loadMyCharacterPage() {
     clearMessage();
     renderCharacters(result.data, CHARACTER_APP_URL);
   } catch (error) {
-    showMessage('error', `❌ 載入失敗：${error.message}`);
+    showMessage('error', '❌ 載入失敗，請稍後重試。');
     console.error('[my-character.js] 角色清單載入失敗:', error);
   }
 }
